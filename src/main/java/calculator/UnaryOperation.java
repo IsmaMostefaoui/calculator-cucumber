@@ -1,14 +1,12 @@
 package calculator;
 
-import visitor.Visitor;
-
 import java.util.List;
 
-public abstract class UnaryOperation extends Operation{
+public abstract class UnaryOperation extends Operation {
 
     public UnaryOperation(List<Expression> elist) throws IllegalConstruction {
         super(elist);
-        if (elist.size()>1)
+        if (elist.size() > 1)
             throw new IllegalConstruction();
     }
 

@@ -1,10 +1,8 @@
 package calculator;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-final public class Not extends UnaryOperation{
+final public class Not extends UnaryOperation {
 
     public Not(List<Expression> elist) throws IllegalConstruction {
         super(elist);
@@ -20,6 +18,6 @@ final public class Not extends UnaryOperation{
 
     @Override
     public int op(int l, int r) {
-        return (l != 0)? 0 : 1;
+        return (l != 0) ? 0 : 1;
     }
 }

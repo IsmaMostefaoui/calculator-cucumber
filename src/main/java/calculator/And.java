@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.List;
 
-final public class And extends Operation{
+final public class And extends Operation {
 
 
     public And(List<Expression> elist) throws IllegalConstruction {
@@ -12,13 +12,13 @@ final public class And extends Operation{
     }
 
     public And(List<Expression> elist, Notation n) throws IllegalConstruction {
-        super(elist,n);
+        super(elist, n);
         symbol = "&";
         neutral = 1;
     }
 
     @Override
     public int op(int l, int r) {
-        return (l*r) != 0 ? 1 : 0;
+        return (l * r) != 0 ? 1 : 0;
     }
 }

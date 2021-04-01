@@ -26,7 +26,6 @@ public class Main {
             e = new MyNumber(8);
             // c.print(e);
             c.printExpressionDetails(e, Notation.INFIX);
-            c.eval(e);
 
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, new MyNumber(3), new MyNumber(4), new MyNumber(5));
@@ -63,6 +62,23 @@ public class Main {
             e = new Or(params6);
             c.printExpressionDetails(e, Notation.INFIX);
             c.eval(e);
+            System.out.println("-----------\nHISTORY");
+            System.out.println("Undo done -> ");
+            e = c.undo();
+            c.print(e);
+
+            System.out.println("Redo done -> ");
+            e = c.redo();
+            c.print(e);
+
+            System.out.println("Undo done -> ");
+            c.undo();
+
+            System.out.println("Undo done -> ");
+            e = c.undo();
+            c.print(e);
+
+            c.printLog(Notation.INFIX);
         } catch (IllegalConstruction exception) {
             System.out.println("cannot create operations without parameters");
         }

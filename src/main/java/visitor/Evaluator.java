@@ -25,7 +25,6 @@ public class Evaluator extends Visitor {
         int temp = evaluatedArgs.get(0);
         int max = evaluatedArgs.size();
         for(int counter=1; counter<max; counter++) {
-            System.out.println("temp = " + temp);
             temp = o.op(temp,evaluatedArgs.get(counter));
         }
         if (evaluatedArgs.size() == 1) {

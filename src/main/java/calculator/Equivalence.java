@@ -3,7 +3,7 @@ package calculator;
 import java.util.Arrays;
 import java.util.List;
 
-public class Equivalence extends Operation{
+public class Equivalence extends Operation {
     public Equivalence(List<Expression> elist) throws IllegalConstruction {
         super(elist);
         this.symbol = "<=>";
@@ -18,13 +18,14 @@ public class Equivalence extends Operation{
 
     @Override
     public int op(int l, int r) {
-        try{
+        try {
             Not not = new Not(Arrays.asList());
             Or or = new Or(Arrays.asList());
             And and = new And(Arrays.asList());
             return and.op(or.op(not.op(l, -1), r), or.op(not.op(r, -1), l));
-        }catch (IllegalConstruction e){
+        } catch (IllegalConstruction e) {
             e.printStackTrace();
-        }return 0;
+        }
+        return 0;
     }
 }

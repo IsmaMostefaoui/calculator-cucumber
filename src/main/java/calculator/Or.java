@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.List;
 
-final public class Or extends Operation{
+final public class Or extends Operation {
     public Or(List<Expression> elist) throws IllegalConstruction {
         super(elist);
         symbol = "|";
@@ -17,6 +17,6 @@ final public class Or extends Operation{
 
     @Override
     public int op(int l, int r) {
-        return (l+r) != 0 ? 1 : 0;
+        return (l + r) != 0 ? 1 : 0;
     }
 }
