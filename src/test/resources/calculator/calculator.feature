@@ -58,6 +58,9 @@ Feature: Integer Arithmetic Expressions
     When I provide 8 and 0 for division
     Then the operation handles arithmetic error
 
+  Scenario: Evaluation boolean operation OR
+    Given: a boolean operation '|'
+
   # A scenario outline (or template) is a scenario that is parameterised
   # with different values. The outline comes with a set of examples.
   # The scenario will be executed with each of the provided inputs.
@@ -96,3 +99,29 @@ Feature: Integer Arithmetic Expressions
       | "-" | 8| 5|     3|
       | "*" | 7| 2|    14|
       | "/" | 6| 2|     3|
+
+  Scenario Outline: Conjunction of two numbers
+    Given a boolean operation '&'
+    When I provide a first number <n1>
+    And I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n1|n2|result|
+      |1|1|1|
+      |1|0|0|
+      |0|1|0|
+      |0|0|0|
+
+  Scenario Outline: Disjunction of two numbers
+    Given a boolean operation '|'
+    When I provide a first number <n1>
+    And I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n1|n2|result|
+      |1|1|1|
+      |1|0|1|
+      |0|1|1|
+      |0|0|0|

@@ -75,4 +75,24 @@ public class TestEvaluator {
         }
     }
 
+    @Test
+    public void testEvaluatorAnd() {
+        try{
+            op = new And(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals((value1*value2)==0?0:1,calc.eval(op));
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEvaluatorOr() {
+        try{
+            op = new Or(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals((value1+value2)==0?0:1,calc.eval(op));
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
 }

@@ -13,6 +13,10 @@ public class MyNumber implements Expression {
         return value;
     }
 
+    public boolean getBooleanValue() {
+        return value == 0;
+    }
+
     public void accept(Visitor v) {
         v.visit(this);
     }

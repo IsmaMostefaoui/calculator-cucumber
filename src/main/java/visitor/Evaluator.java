@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Evaluator extends Visitor {
 
-    private int computedValue;
+    protected int computedValue;
 
     public Integer getResult() { return computedValue; }
 

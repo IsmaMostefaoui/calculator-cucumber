@@ -77,7 +77,7 @@ public class CalculatorSteps {
 	public void thenItsNotationIs(String notation, String s) {
 		if (notation.equals("PREFIX")||notation.equals("POSTFIX")||notation.equals("INFIX")) {
 			op.notation = Notation.valueOf(notation);
-			assertEquals(s, op.toString());
+			assertEquals(s, c.convertToString(op, op.notation));
 		}
 		else fail(notation + " is not a correct notation! ");
 	}
@@ -126,6 +126,21 @@ public class CalculatorSteps {
 			fail();
 		}
 		assertTrue(true);
+	}
+
+	@Given("a boolean operation {string}")
+	public void givenABooleanOperation(String s) {
+		// Write code here that turns the phrase above into concrete actions
+		params = new ArrayList<>(); // create an empty set of parameters to be filled in
+		try {
+			switch (s) {
+				case "&": { op = new And(params); break; }
+				case "|": { op = new Or(params); break; }
+				default: { fail(); }
+			}
+		} catch (IllegalConstruction e) {
+			fail();
+		}
 	}
 
 }

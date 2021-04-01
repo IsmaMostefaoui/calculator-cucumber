@@ -1,6 +1,7 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,6 +56,12 @@ public class Main {
             Collections.addAll(params5, new Plus(params), new Minus(params2), new Times(params2), new MyNumber(1));
             e = new Divides(params5);
             c.printExpressionDetails(e, Notation.POSTFIX);
+            c.eval(e);
+
+            List<Expression> params6 = new ArrayList<>();
+            Collections.addAll(params6, new And(params), new Or(params2), new And(params2), new MyNumber(1));
+            e = new Or(params6);
+            c.printExpressionDetails(e, Notation.INFIX);
             c.eval(e);
         } catch (IllegalConstruction exception) {
             System.out.println("cannot create operations without parameters");
