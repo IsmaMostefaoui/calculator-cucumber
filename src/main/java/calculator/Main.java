@@ -59,7 +59,7 @@ public class Main {
             c.eval(e);
 
             List<Expression> params6 = new ArrayList<>();
-            Collections.addAll(params6, new And(params), new Or(params2), new And(params2), new MyNumber(1));
+            Collections.addAll(params6, new Not(Arrays.asList(new MyNumber(1))), new Or(params2), new And(params2), new MyNumber(1));
             e = new Or(params6);
             c.printExpressionDetails(e, Notation.INFIX);
             c.eval(e);

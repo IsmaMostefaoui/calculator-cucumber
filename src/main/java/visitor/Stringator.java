@@ -32,22 +32,30 @@ public class Stringator extends Visitor{
             toStringArgs.add(toStringValue);
         }
         Supplier<Stream<String>> streamSupplier= toStringArgs::stream;
-        switch (notation) {
-            case INFIX: toStringValue= "( " +
-                    streamSupplier.get().reduce((s1,s2) -> s1 + " " + o.getSymbol() + " " + s2).get() +
-                    " )";
-                break;
-            case PREFIX: toStringValue= o.getSymbol() + " " +
-                    "(" +
-                    streamSupplier.get().reduce((s1,s2) -> s1 + ", " + s2).get() +
-                    ")";
-                break;
-            case POSTFIX: toStringValue= "(" +
-                    streamSupplier.get().reduce((s1,s2) -> s1 + ", " + s2).get() +
-                    ")" +
-                    " " + o.getSymbol();
-                break;
-            default: toStringValue= "This case should never occur.";
+        if (o.getSymbol().equals("!")){
+            toStringValue = o.getSymbol() + " " + "(" + streamSupplier.get().reduce((s1, s2) -> s1).get() + ")";
+        }else {
+            switch (notation) {
+                case INFIX:
+                    toStringValue = "( " +
+                            streamSupplier.get().reduce((s1, s2) -> s1 + " " + o.getSymbol() + " " + s2).get() +
+                            " )";
+                    break;
+                case PREFIX:
+                    toStringValue = o.getSymbol() + " " +
+                            "(" +
+                            streamSupplier.get().reduce((s1, s2) -> s1 + ", " + s2).get() +
+                            ")";
+                    break;
+                case POSTFIX:
+                    toStringValue = "(" +
+                            streamSupplier.get().reduce((s1, s2) -> s1 + ", " + s2).get() +
+                            ")" +
+                            " " + o.getSymbol();
+                    break;
+                default:
+                    toStringValue = "This case should never occur.";
+            }
         }
     }
 }

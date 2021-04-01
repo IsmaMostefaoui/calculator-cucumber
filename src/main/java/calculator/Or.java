@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.List;
 
-public class Or extends Operation{
+final public class Or extends Operation{
     public Or(List<Expression> elist) throws IllegalConstruction {
         super(elist);
         symbol = "|";

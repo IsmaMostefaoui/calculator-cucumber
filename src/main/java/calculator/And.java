@@ -2,7 +2,7 @@ package calculator;
 
 import java.util.List;
 
-public class And extends Operation{
+final public class And extends Operation{
 
 
     public And(List<Expression> elist) throws IllegalConstruction {

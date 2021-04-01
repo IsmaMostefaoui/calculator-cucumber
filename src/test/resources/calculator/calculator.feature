@@ -125,3 +125,40 @@ Feature: Integer Arithmetic Expressions
       |1|0|1|
       |0|1|1|
       |0|0|0|
+
+  Scenario Outline: Not of one number
+    Given a boolean operation '!'
+    When I provide a first number <n1>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n1|result|
+      |1|0|
+      |0|1|
+
+
+  Scenario Outline: Imply of two numbers
+    Given a boolean operation '=>'
+    When I provide a first number <n1>
+    And I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n1|n2|result|
+      |1|1|1|
+      |1|0|0|
+      |0|1|1|
+      |0|0|1|
+
+  Scenario Outline: Equivalence of two numbers
+    Given a boolean operation '<=>'
+    When I provide a first number <n1>
+    And I provide a second number <n2>
+    Then the operation evaluates to <result>
+
+    Examples:
+      |n1|n2|result|
+      |1|1|1|
+      |1|0|0|
+      |0|1|0|
+      |0|0|1|

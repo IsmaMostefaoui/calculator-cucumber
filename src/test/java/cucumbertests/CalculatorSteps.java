@@ -136,6 +136,9 @@ public class CalculatorSteps {
 			switch (s) {
 				case "&": { op = new And(params); break; }
 				case "|": { op = new Or(params); break; }
+				case "!": { op = new Not(params); break; }
+				case "=>": { op = new Imply(params); break; }
+				case "<=>": { op = new Equivalence(params); break; }
 				default: { fail(); }
 			}
 		} catch (IllegalConstruction e) {
