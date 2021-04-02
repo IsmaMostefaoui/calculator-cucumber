@@ -1,5 +1,6 @@
 package calculator;
 
+import java.time.Duration;
 import java.util.List;
 
 final public class Plus extends Operation {
@@ -18,5 +19,10 @@ final public class Plus extends Operation {
 
     public int op(int l, int r) {
         return (l + r);
+    }
+
+    public Duration op(MyDate l, MyDate r) {
+
+        throw new RuntimeException();
     }
 }
