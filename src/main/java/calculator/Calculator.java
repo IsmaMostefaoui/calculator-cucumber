@@ -1,9 +1,11 @@
 package calculator;
 
+import org.json.simple.JSONObject;
 import visitor.Countator;
 import visitor.Evaluator;
 import visitor.Stringator;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +80,14 @@ public class Calculator {
         }
     }
 
+    public List<Expression> getActionHistory(){
+        return actionHistory;
+    }
+
+    public Expression getCurrent(){
+        return ch.getCurrent();
+    }
+
     public Expression undo(){
         ch.undo();
         actionHistory.add(ch.getCurrent());
@@ -106,6 +116,46 @@ public class Calculator {
         if (memory.length <= indexOfMemory)
             throw new OutOfMemoryError();
         memory[indexOfMemory] = e;
+    }
+
+    public void clearHistory(){
+        actionHistory.clear();
+    }
+
+    public void saveHistory(){
+        try {
+            FileOutputStream file = new FileOutputStream("history.bin");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            // Method for serialization of object
+            out.writeObject(actionHistory);
+
+            out.close();
+            file.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void loadHistory(){
+        List<Expression> loadedHistory = null;
+        try{
+            FileInputStream file = new FileInputStream("history.bin");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            loadedHistory = (List<Expression>)in.readObject();
+
+            in.close();
+            file.close();
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        if (loadedHistory != null){
+            System.out.println("here");
+            System.out.println(loadedHistory);
+            this.actionHistory.addAll(loadedHistory);
+        }
     }
 
     public String convertToString(Expression e, Notation notation) {

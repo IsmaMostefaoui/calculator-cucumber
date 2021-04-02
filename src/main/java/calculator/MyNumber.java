@@ -2,7 +2,9 @@ package calculator;
 
 import visitor.Visitor;
 
-public class MyNumber implements Expression {
+import java.io.Serializable;
+
+public class MyNumber implements Expression, Serializable {
     private final int value;
 
     public /*constructor*/ MyNumber(int v) {

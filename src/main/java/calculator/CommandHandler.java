@@ -1,8 +1,9 @@
 package calculator;
 
+import java.io.Serializable;
 import java.util.Stack;
 
-public class CommandHandler {
+public class CommandHandler implements Serializable {
 
 
     private Stack<Expression> actionQueue;

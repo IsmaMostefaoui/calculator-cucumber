@@ -79,6 +79,8 @@ public class Main {
             c.print(e);
 
             c.printLog(Notation.INFIX);
+
+            c.saveHistory();
         } catch (IllegalConstruction exception) {
             System.out.println("cannot create operations without parameters");
         }
