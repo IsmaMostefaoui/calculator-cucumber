@@ -1,8 +1,6 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Operation;
+import calculator.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +34,18 @@ public class Countator extends Visitor {
         countDepth = Collections.max(depthArgs);
         countNbs = nbsArgs.stream().mapToInt(x -> x).reduce(Integer::sum).getAsInt();
         countOps += 1;
+    }
+
+    @Override
+    public void visit(MyDateTime myDateTime) {
+        countNbs = 1;
+        countDepth = 0;
+    }
+
+    @Override
+    public void visit(MyTimeDuration myTimeDuration) {
+        countNbs = 1;
+        countDepth = 0;
     }
 
     public int getCountNbs() {

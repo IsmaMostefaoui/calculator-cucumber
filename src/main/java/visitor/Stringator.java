@@ -1,10 +1,9 @@
 package visitor;
 
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.Notation;
-import calculator.Operation;
+import calculator.*;
 
+import java.time.Duration;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -12,12 +11,20 @@ import java.util.stream.Stream;
 public class Stringator extends Visitor{
     private String toStringValue;
     private Notation notation;
+    private MyDurationUnits durationUnits;
 
-    public String getString(Expression e, Notation notation){
+
+    public String getString(Expression e, Notation notation) {
+        return this.getString(e, notation, null);
+    }
+    public String getString(Expression e, Notation notation, MyDurationUnits durationUnits){
         this.notation=notation;
+        this.durationUnits = durationUnits;
         e.accept(this);
         return toStringValue;
     }
+
+
 
     @Override
     public void visit(MyNumber n) {
@@ -48,6 +55,33 @@ public class Stringator extends Visitor{
                     " " + o.getSymbol();
                 break;
             default: toStringValue= "This case should never occur.";
+        }
+    }
+
+    @Override
+    public void visit(MyDateTime myDateTime) {
+        this.toStringValue = "["+ myDateTime.getValue().toString()+"]";
+    }
+
+    @Override
+    public void visit(MyTimeDuration myTimeDuration) {
+
+        Duration d = myTimeDuration.getValue();
+        switch (this.durationUnits) {
+
+            case DAYS:
+                this.toStringValue = "["+ String.format("%dd %dh %dm %ds", d.toDays(), d.toHoursPart(), d.toMinutesPart(), d.toSecondsPart()) +"]";
+                break;
+            case HOURS:
+                this.toStringValue = "["+ String.format("%dh %dm %ds", d.toHours(), d.toMinutesPart(), d.toSecondsPart()) +"]";
+                break;
+            case MINUTES:
+                this.toStringValue = "["+ String.format("%dm %ds", d.toMinutes(), d.toSecondsPart()) +"]";
+                break;
+            case SECONDS:
+                this.toStringValue = "["+ String.format("%ds", d.toSeconds()) +"]";
+                break;
+
         }
     }
 }

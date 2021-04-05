@@ -2,23 +2,20 @@ package calculator;
 
 import visitor.Visitor;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class MyDate implements  Expression {
+public class MyDateS implements  Expression {
 
     private LocalDateTime value;
 
 
 
-    public MyDate(String dateString) throws IllegalConstruction {
+    public MyDateS(String dateString) throws IllegalConstruction {
         List<String> acceptedFormats = new ArrayList<>();
         acceptedFormats.add("yyyy-MM-dd hh:mm:ss a z");
         acceptedFormats.add("yyyy-MM-dd hh:mm a z");

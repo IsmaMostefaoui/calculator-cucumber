@@ -15,6 +15,9 @@ public class UnitsConverter {
     public double convertCurrency(double amount, String inputCurrency, String outputCurrency) throws IOException {
         // api documentation https://www.frankfurter.app/docs/
 
+        inputCurrency = inputCurrency.toUpperCase();
+        outputCurrency = outputCurrency.toUpperCase();
+
         String path = "https://api.frankfurter.app/latest?amount=%f&from=%s&to=%s";
 
         URL url = new URL(String.format(path,amount, inputCurrency, outputCurrency));
@@ -31,6 +34,7 @@ public class UnitsConverter {
 
 
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+
         return Double.parseDouble(jsonObject.get("rates").getAsJsonObject().get(outputCurrency).toString());
     }
 

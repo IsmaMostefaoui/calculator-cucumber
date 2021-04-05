@@ -1,6 +1,7 @@
 package calculator;
 
 import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 final public class Plus extends Operation {
@@ -17,12 +18,31 @@ final public class Plus extends Operation {
         neutral = 0;
     }
 
-    public int op(int l, int r) {
-        return (l + r);
+    @Override
+    public CalculatorResult op(Double l, Double r) {
+        return new CalculatorResult(l + r);
     }
 
-    public Duration op(MyDate l, MyDate r) {
 
-        throw new RuntimeException();
+    @Override
+    public CalculatorResult op(ZonedDateTime l, Duration r) {
+        return new CalculatorResult(l.plus(r));
+    }
+
+    @Override
+    public CalculatorResult op(Duration r) {
+        return new CalculatorResult(ZonedDateTime.now().plus(r));
+    }
+
+
+
+    @Override
+    public CalculatorResult op(Duration l, ZonedDateTime r) {
+        return this.op(r, l);
+    }
+
+    @Override
+    public CalculatorResult op(Duration l, Duration r) {
+        return new CalculatorResult(l.plus(r));
     }
 }

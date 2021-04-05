@@ -16,7 +16,10 @@ final public class Times extends Operation {
         neutral = 1;
     }
 
-    public int op(int l, int r) {
-        return (l * r);
+    @Override
+    public CalculatorResult op(Double l, Double r) {
+        return new CalculatorResult(l * r);
     }
+
+
 }

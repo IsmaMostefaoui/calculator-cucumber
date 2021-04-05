@@ -17,11 +17,11 @@ final public class Divides extends Operation
 	neutral = 1;
     }
   
-  public int op(int l, int r)
+  public CalculatorResult op(Double l, Double r)
     {
     	if (r==0){
     		throw new DivisionByZero();
 		}
-    	return (l/r);
+    	return new CalculatorResult(l/r);
     }
 }

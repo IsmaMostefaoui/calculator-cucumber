@@ -7,6 +7,8 @@ import org.junit.jupiter.api.*;
 import calculator.*;
 import visitor.Evaluator;
 
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 public class TestEvaluator {
@@ -28,25 +30,65 @@ public class TestEvaluator {
     @Test
     public void testEvaluatorMyNumber() {
         assertEquals( value1,
-                      calc.eval(new MyNumber(value1)));
+                      calc.eval(new MyNumber(value1)).asNumber());
+    }
+
+
+    @Test
+    public  void testEvaluatorMyDateTime() {
+        ZonedDateTime zdt = ZonedDateTime.now();
+        MyDateTime mdt = new MyDateTime(zdt);
+        assertEquals(zdt, calc.eval(mdt).asZonedDateTime());
+
+    }
+
+    @Test
+    public  void testEvaluatorMyTimeDuration() {
+        Duration d = Duration.ofDays(2);
+        MyTimeDuration mtd = new MyTimeDuration(d);
+        assertEquals(d, calc.eval(mtd).asDuration());
     }
 
     @Test
     public void testEvaluatorDivides() {
-        try { op = new Divides(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-          assertEquals( value1 / value2,
-                        calc.eval(op) );
-          }
-        catch(IllegalConstruction e) {
+        try {
+            op = new Divides(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals( value1*1. / value2,calc.eval(op).asNumber(), 0.0001);
+
+
+            ZonedDateTime zdt = ZonedDateTime.now();
+            ZonedDateTime zdt1 = ZonedDateTime.now().plusHours(5);
+            op = new Divides(Arrays.asList(new MyDateTime(zdt), new MyTimeDuration(Duration.ofHours(2))));
+            assertTrue( calc.eval(op).isUndefined());
+
+            op = new Divides(Arrays.asList(new MyDateTime(zdt), new MyDateTime(zdt1)));
+            assertTrue( calc.eval(op).isUndefined());
+
+
+
+        } catch(IllegalConstruction e) {
             fail();
         }
+
+
+
     }
 
     @Test
     public void testEvaluatorPlus() {
-        try { op = new Plus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-            assertEquals( value1 + value2,
-                    calc.eval(op) );
+        try {
+            op = new Plus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals( value1 + value2,calc.eval(op).asNumber());
+
+
+            ZonedDateTime zdt = ZonedDateTime.now();
+            ZonedDateTime zdt1 = ZonedDateTime.now().plusHours(5);
+            op = new Plus(Arrays.asList(new MyDateTime(zdt), new MyDateTime(zdt1)));
+            assertTrue( calc.eval(op).isUndefined());
+
+            Duration d = Duration.ofHours(2);
+            op = new Plus(Arrays.asList(new MyDateTime(zdt), new MyTimeDuration(d)));
+            assertEquals( zdt.plus(d), calc.eval(op).asZonedDateTime());
         }
         catch(IllegalConstruction e) {
             fail();
@@ -55,9 +97,23 @@ public class TestEvaluator {
 
     @Test
     public void testEvaluatorMinus() {
-        try { op = new Minus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-            assertEquals( value1 - value2,
-                    calc.eval(op) );
+        try {
+            op = new Minus(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals( value1 - value2, calc.eval(op).asNumber());
+
+            ZonedDateTime zdt = ZonedDateTime.now();
+            ZonedDateTime zdt1 = ZonedDateTime.now();
+            op = new Minus(Arrays.asList(new MyDateTime(zdt), new MyDateTime(zdt1)));
+            assertEquals(Duration.between(zdt, zdt1), calc.eval(op).asDuration());
+
+            Duration d = Duration.ofHours(2);
+            op = new Minus(Arrays.asList(new MyDateTime(zdt), new MyTimeDuration(d)));
+            assertEquals( zdt.minus(d), calc.eval(op).asZonedDateTime());
+
+
+            op = new Minus(Arrays.asList(new MyTimeDuration(d), new MyDateTime(zdt)));
+            assertTrue( calc.eval(op).isUndefined());
+
         }
         catch(IllegalConstruction e) {
             fail();
@@ -67,8 +123,15 @@ public class TestEvaluator {
     @Test
     public void testEvaluatorTimes() {
         try { op = new Times(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
-            assertEquals( value1 * value2,
-                    calc.eval(op) );
+            assertEquals( value1 * value2, calc.eval(op).asNumber());
+
+            ZonedDateTime zdt = ZonedDateTime.now();
+            ZonedDateTime zdt1 = ZonedDateTime.now().plusHours(5);
+            op = new Times(Arrays.asList(new MyDateTime(zdt), new MyTimeDuration(Duration.ofHours(2))));
+            assertTrue( calc.eval(op).isUndefined());
+
+            op = new Times(Arrays.asList(new MyDateTime(zdt), new MyDateTime(zdt1)));
+            assertTrue( calc.eval(op).isUndefined());
         }
         catch(IllegalConstruction e) {
             fail();
