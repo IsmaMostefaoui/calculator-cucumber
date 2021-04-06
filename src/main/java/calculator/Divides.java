@@ -25,10 +25,12 @@ final public class Divides extends Operation {
         neutral = BigInteger.ONE;
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
+
+    public CalculatorResult op(BigInteger l, BigInteger r) {
         if (r.equals(BigInteger.ZERO)) {
             throw new DivisionByZero();
         }
-        return (l.divide(r).mod(modulo));
+        return new CalculatorResult(l.divide(r).mod(modulo));
+
     }
 }

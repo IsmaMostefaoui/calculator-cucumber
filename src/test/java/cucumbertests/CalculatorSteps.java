@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CalculatorSteps {
 
     @Before
     public void resetMemoryBeforeEachScenario() {
+
         params = null;
         op = null;
     }
@@ -78,11 +80,11 @@ public class CalculatorSteps {
     @Given("^the sum of two numbers (\\d+) and (\\d+)$")
     // The alternative, and in this case simpler, notation would be:
     // @Given("the sum of two numbers {int} and {int}")
-    public void givenTheSum(String n1, String n2) {
+    public void givenTheSum(int n1, int n2) {
         try {
             params = new ArrayList<>();
-            params.add(new MyNumber(n1));
-            params.add(new MyNumber(n2));
+            params.add(new MyNumber(String.valueOf(n1)));
+            params.add(new MyNumber(String.valueOf(n2)));
             op = new Plus(params);
         } catch (IllegalConstruction e) {
             fail();
@@ -93,13 +95,13 @@ public class CalculatorSteps {
     public void thenItsNotationIs(String notation, String s) {
         if (notation.equals("PREFIX") || notation.equals("POSTFIX") || notation.equals("INFIX")) {
             op.notation = Notation.valueOf(notation);
-            assertEquals(s, op.toString());
+            assertEquals(s, c.convertToString(op, op.notation));
         } else fail(notation + " is not a correct notation! ");
     }
 
     @When("^I provide a (.*) number (\\d+)$")
-    public void whenIProvideANumber(String s, String val) {
-        params.add(new MyNumber(val));
+    public void whenIProvideANumber(String s, int val) {
+        params.add(new MyNumber(String.valueOf(val)));
     }
 
     @Then("^the (.*) is (\\d+)$")
@@ -125,7 +127,7 @@ public class CalculatorSteps {
                 default:
                     fail();
             }
-            assertEquals(val, c.eval(op));
+            assertEquals(BigInteger.valueOf(val), c.eval(op).asNumber());
         } catch (IllegalConstruction e) {
             fail();
         }
@@ -136,13 +138,13 @@ public class CalculatorSteps {
         //During previous @When steps, extra parameters may have been added to the operation
         //so we complete its parameter list here:
         op.addMoreParams(params);
-        assertEquals(val, c.eval(op));
+        assertEquals(BigInteger.valueOf(val), c.eval(op).asNumber());
     }
 
     @When("I provide {int} and {int} for division")
-    public void whenIProvideAndForDivision(String val1, String val2) {
-        params.add(new MyNumber(val1));
-        params.add(new MyNumber(val2));
+    public void whenIProvideAndForDivision(int val1, int val2) {
+        params.add(new MyNumber(String.valueOf(val1)));
+        params.add(new MyNumber(String.valueOf(val2)));
     }
 
     @Then("the operation handles arithmetic error")
@@ -155,5 +157,6 @@ public class CalculatorSteps {
         }
         assertTrue(true);
     }
+
 
 }

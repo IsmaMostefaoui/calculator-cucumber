@@ -2,44 +2,61 @@ package visitor;
 
 import calculator.*;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Evaluator extends Visitor {
 
-    private BigInteger computedValue;
 
-    public BigInteger getResult() {
+    private CalculatorResult computedValue;
+
+
+    public CalculatorResult getResult() {
         return computedValue;
     }
 
+
     public void visit(MyNumber n) {
-        computedValue = n.getValue();
+        computedValue = new CalculatorResult(n.getValue());
     }
 
+
     public void visit(Converter c) {
-        computedValue = c.getValue();
+        computedValue = new CalculatorResult(c.getValue());
     }
 
     public void visit(RandomGenerator c) {
-        computedValue = c.getValue();
+        computedValue = new CalculatorResult(c.getValue());
     }
 
+
     public void visit(Operation o) throws DivisionByZero {
-        ArrayList<BigInteger> evaluatedArgs = new ArrayList<>();
+        ArrayList<CalculatorResult> evaluatedArgs = new ArrayList<>();
+
         //first loop to recursively evaluate each subexpression
         for (Expression a : o.args) {
             a.accept(this);
             evaluatedArgs.add(computedValue);
         }
         //second loop to accummulate all the evaluated subresults
-        BigInteger temp = evaluatedArgs.get(0);
+
+        CalculatorResult temp = evaluatedArgs.get(0);
+
         int max = evaluatedArgs.size();
         for (int counter = 1; counter < max; counter++) {
             temp = o.op(temp, evaluatedArgs.get(counter));
         }
         // store the accumulated result
         computedValue = temp;
+    }
+
+    @Override
+    public void visit(MyDateTime myDateTime) {
+        this.computedValue = new CalculatorResult(myDateTime.getValue());
+    }
+
+    @Override
+    public void visit(MyTimeDuration myTimeDuration) {
+        this.computedValue = new CalculatorResult(myTimeDuration.getValue());
     }
 
 }

@@ -11,8 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGCD {
 
@@ -40,6 +39,7 @@ public class TestGCD {
             op = new GCD(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountDepth());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -50,6 +50,7 @@ public class TestGCD {
             op = new GCD(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountOps());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -60,6 +61,7 @@ public class TestGCD {
             op = new GCD(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(2), c.count(op).getCountNbs());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 

@@ -10,8 +10,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestModularInverse {
 
@@ -35,6 +34,7 @@ public class TestModularInverse {
             op = new ModularInverse(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountDepth());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -45,6 +45,7 @@ public class TestModularInverse {
             op = new ModularInverse(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountOps());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -55,6 +56,7 @@ public class TestModularInverse {
             op = new ModularInverse(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(2), c.count(op).getCountNbs());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -64,6 +66,7 @@ public class TestModularInverse {
             op = new ModularInverse(new ArrayList<Expression>(Arrays.asList(new MyNumber("10"), new MyNumber("2"))));
             assertThrows(ArithmeticException.class, () -> op.op(new BigInteger("10"), new BigInteger("2")));
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 }

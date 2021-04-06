@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class testModulo {
     MyNumber n1, n2, n3, n4, n5;
@@ -37,9 +38,10 @@ public class testModulo {
             List<Expression> params = new ArrayList<>();
             Collections.addAll(params, n1, n2);
 
-            assertEquals(c.eval(new Modulo(params)), n3.getValue());
+            assertEquals(c.eval(new Modulo(params)).asNumber(), n3.getValue());
 
         } catch (Exception e) {
+            fail();
         }
     }
 
@@ -55,7 +57,7 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             p1 = new Plus(e1);
-            assertEquals(c.eval(p1), c.eval(n3));
+            assertEquals(c.eval(p1).asNumber(), c.eval(n3).asNumber());
 
             n1 = new MyNumber("5", "3");
             n2 = new MyNumber("2", "3");
@@ -64,7 +66,7 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             p1 = new Plus(e1, n4);
-            assertEquals(c.eval(p1), c.eval(n3));
+            assertEquals(c.eval(p1).asNumber(), c.eval(n3).asNumber());
 
             // a=b mod c => a+k=(b+k)mod c
             n1 = new MyNumber("2");
@@ -73,7 +75,7 @@ public class testModulo {
             n4 = new MyNumber("3");
             n5 = new MyNumber("3");
 
-            assertEquals(c.eval(n1), c.eval(n2));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
 
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n4);
@@ -83,7 +85,7 @@ public class testModulo {
             Collections.addAll(e2, n3, n4);
             p2 = new Plus(e2, n5);
 
-            assertEquals(c.eval(p1), c.eval(p2));
+            assertEquals(c.eval(p1).asNumber(), c.eval(p2).asNumber());
 
             // a=b mod n c=d mod n => a+c=(b+d)mod n
             n1 = new MyNumber("2");
@@ -92,8 +94,8 @@ public class testModulo {
             n4 = new MyNumber("10", "7");
             n5 = new MyNumber("7");
 
-            assertEquals(c.eval(n1), c.eval(n2));
-            assertEquals(c.eval(n3), c.eval(n4));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
+            assertEquals(c.eval(n3).asNumber(), c.eval(n4).asNumber());
 
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n3);
@@ -103,18 +105,19 @@ public class testModulo {
             Collections.addAll(e1, n2, n4);
             p2 = new Plus(e1, n5);
 
-            assertEquals(c.eval(p1), c.eval(p2));
+            assertEquals(c.eval(p1).asNumber(), c.eval(p2).asNumber());
 
             // a=b mod n => -a=-b mod n
             n1 = new MyNumber("4", true);
             n2 = new MyNumber("14", "10", true);
-            assertEquals(c.eval(n1), c.eval(n2));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
 
             n1 = new MyNumber("4", false);
             n2 = new MyNumber("14", "10", false);
-            assertEquals(c.eval(n1), c.eval(n2));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
 
         } catch (Exception e) {
+            fail();
         }
     }
 
@@ -130,7 +133,7 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             m1 = new Minus(e1);
-            assertEquals(c.eval(m1), c.eval(n3));
+            assertEquals(c.eval(m1).asNumber(), c.eval(n3).asNumber());
 
             n1 = new MyNumber("5", "3");
             n2 = new MyNumber("2", "3");
@@ -139,7 +142,7 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             m1 = new Minus(e1, n4);
-            assertEquals(c.eval(m1), c.eval(n3));
+            assertEquals(c.eval(m1).asNumber(), c.eval(n3).asNumber());
 
             // a=b mod c => a+k=(b+k)mod c
             n1 = new MyNumber("2");
@@ -148,7 +151,7 @@ public class testModulo {
             n4 = new MyNumber("3");
             n5 = new MyNumber("3");
 
-            assertEquals(c.eval(n1), c.eval(n2));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
 
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n4);
@@ -158,7 +161,7 @@ public class testModulo {
             Collections.addAll(e2, n3, n4);
             m2 = new Minus(e2, n5);
 
-            assertEquals(c.eval(m1), c.eval(m2));
+            assertEquals(c.eval(m1).asNumber(), c.eval(m2).asNumber());
 
             // a=b mod n c=d mod n => a+c=(b+d)mod n
             n1 = new MyNumber("2");
@@ -167,8 +170,8 @@ public class testModulo {
             n4 = new MyNumber("10", "7");
             n5 = new MyNumber("7");
 
-            assertEquals(c.eval(n1), c.eval(n2));
-            assertEquals(c.eval(n3), c.eval(n4));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
+            assertEquals(c.eval(n3).asNumber(), c.eval(n4).asNumber());
 
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n3);
@@ -178,9 +181,10 @@ public class testModulo {
             Collections.addAll(e1, n2, n4);
             m2 = new Minus(e1, n5);
 
-            assertEquals(c.eval(m1), c.eval(m2));
+            assertEquals(c.eval(m1).asNumber(), c.eval(m2).asNumber());
 
         } catch (Exception e) {
+            fail();
         }
     }
 
@@ -196,7 +200,7 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             t1 = new Times(e1);
-            assertEquals(c.eval(t1), c.eval(n3));
+            assertEquals(c.eval(t1).asNumber(), c.eval(n3).asNumber());
 
             n1 = new MyNumber("5", "3");
             n2 = new MyNumber("2", "3");
@@ -205,7 +209,7 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             t1 = new Times(e1, n4);
-            assertEquals(c.eval(t1), c.eval(n3));
+            assertEquals(c.eval(t1).asNumber(), c.eval(n3).asNumber());
 
             // a=b mod c => a*k=b*k mod c
             n1 = new MyNumber("2");
@@ -214,7 +218,7 @@ public class testModulo {
             n4 = new MyNumber("3");
             n5 = new MyNumber("3");
 
-            assertEquals(c.eval(n1), c.eval(n2));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
 
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n4);
@@ -224,7 +228,7 @@ public class testModulo {
             Collections.addAll(e2, n3, n4);
             t2 = new Times(e2, n5);
 
-            assertEquals(c.eval(t1), c.eval(t2));
+            assertEquals(c.eval(t1).asNumber(), c.eval(t2).asNumber());
 
             // a=b mod n c=d mod n => a*c=b*d mod n
             n1 = new MyNumber("2");
@@ -233,8 +237,8 @@ public class testModulo {
             n4 = new MyNumber("10", "7");
             n5 = new MyNumber("7");
 
-            assertEquals(c.eval(n1), c.eval(n2));
-            assertEquals(c.eval(n3), c.eval(n4));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
+            assertEquals(c.eval(n3).asNumber(), c.eval(n4).asNumber());
 
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n3);
@@ -244,9 +248,10 @@ public class testModulo {
             Collections.addAll(e1, n2, n4);
             t2 = new Times(e1, n5);
 
-            assertEquals(c.eval(t1), c.eval(t2));
+            assertEquals(c.eval(t1).asNumber(), c.eval(t2).asNumber());
 
         } catch (Exception e) {
+            fail();
         }
     }
 
@@ -263,9 +268,10 @@ public class testModulo {
             e1 = new ArrayList<>();
             Collections.addAll(e1, n1, n2);
             d1 = new Divides(e1, n3);
-            assertEquals(c.eval(d1), c.eval(n4));
+            assertEquals(c.eval(d1).asNumber(), c.eval(n4).asNumber());
 
         } catch (Exception e) {
+            fail();
         }
     }
 
@@ -277,7 +283,7 @@ public class testModulo {
             // a=b mod n => a^k=b^k mod n
             n1 = new MyNumber("2", "3");
             n2 = new MyNumber("5", "3");
-            assertEquals(c.eval(n1), c.eval(n2));
+            assertEquals(c.eval(n1).asNumber(), c.eval(n2).asNumber());
 
             n1 = new MyNumber("2");
             n2 = new MyNumber("5");
@@ -289,8 +295,9 @@ public class testModulo {
             Collections.addAll(e2, n1, n3);
             exp1 = new Exponents(e1, n4);
             exp2 = new Exponents(e2, n4);
-            assertEquals(c.eval(exp1), c.eval(exp2));
+            assertEquals(c.eval(exp1).asNumber(), c.eval(exp2).asNumber());
         } catch (Exception e) {
+            fail();
         }
     }
 }

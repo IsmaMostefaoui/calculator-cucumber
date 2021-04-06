@@ -25,7 +25,12 @@ final public class Times extends Operation {
         neutral = BigInteger.ONE;
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.multiply(r).mod(modulo));
+
+    @Override
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.multiply(r).mod(modulo));
+
     }
+
+
 }

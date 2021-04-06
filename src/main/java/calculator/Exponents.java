@@ -25,8 +25,8 @@ final public class Exponents extends Operation {
         neutral = BigInteger.ONE;
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.modPow(r, modulo));
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.modPow(r, modulo));
     }
 }
 

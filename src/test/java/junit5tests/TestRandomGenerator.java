@@ -60,9 +60,9 @@ public class TestRandomGenerator {
         for (int i = 0; i < iterationNumber; i++) {
             rg = new RandomGenerator("2");
             try {
-                l.put(c.eval(rg) + "", l.get(c.eval(rg) + "") + 1);
+                l.put(c.eval(rg).asNumber() + "", l.get(c.eval(rg) + "") + 1);
             } catch (Exception exception) {
-                l.put(c.eval(rg) + "", 1);
+                l.put(c.eval(rg).asNumber() + "", 1);
             }
         }
         assertTrue(Math.abs(l.get("0") - l.get("1")) <= epsilon, "0 : " + l.get("0") + "; 1 : " + l.get("1"));

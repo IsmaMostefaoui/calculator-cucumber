@@ -1,6 +1,9 @@
 package calculator;
 
+
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 final public class Plus extends Operation {
@@ -25,7 +28,29 @@ final public class Plus extends Operation {
         neutral = BigInteger.ZERO;
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.add(r).mod(modulo));
+    @Override
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.add(r).mod(modulo));
+    }
+
+
+    @Override
+    public CalculatorResult op(ZonedDateTime l, Duration r) {
+        return new CalculatorResult(l.plus(r));
+    }
+
+    @Override
+    public CalculatorResult op(Duration r) {
+        return new CalculatorResult(ZonedDateTime.now().plus(r));
+    }
+
+    @Override
+    public CalculatorResult op(Duration l, ZonedDateTime r) {
+        return this.op(r, l);
+    }
+
+    @Override
+    public CalculatorResult op(Duration l, Duration r) {
+        return new CalculatorResult(l.plus(r));
     }
 }

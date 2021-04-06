@@ -15,7 +15,7 @@ final public class Min extends Operation {
         symbol = "min";
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.min(r));
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.min(r));
     }
 }

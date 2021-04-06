@@ -3,6 +3,8 @@ package calculator;
 import visitor.Visitor;
 
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,92 @@ public abstract class Operation implements Expression {
         return args;
     }
 
-    abstract public BigInteger op(BigInteger l, BigInteger r);
+
+    public CalculatorResult op(CalculatorResult l, CalculatorResult r) {
+
+        switch (l.getType()) {
+            case NUMBER:
+                switch (r.getType()) {
+                    case NUMBER:
+                        return this.op(l.asNumber(), r.asNumber());
+                    case DURATION:
+                        return this.op(l.asNumber(), r.asDuration());
+                    case DATETIME:
+                        return this.op(l.asNumber(), r.asZonedDateTime());
+
+                }
+                break;
+            case DURATION:
+                switch (r.getType()) {
+                    case NUMBER:
+                        return this.op(l.asDuration(), r.asNumber());
+                    case DURATION:
+                        return this.op(l.asDuration(), r.asDuration());
+                    case DATETIME:
+                        return this.op(l.asDuration(), r.asZonedDateTime());
+
+                }
+                break;
+            case DATETIME:
+                switch (r.getType()) {
+                    case NUMBER:
+                        return this.op(l.asZonedDateTime(), r.asNumber());
+                    case DURATION:
+                        return this.op(l.asZonedDateTime(), r.asDuration());
+                    case DATETIME:
+                        return this.op(l.asZonedDateTime(), r.asZonedDateTime());
+                }
+                break;
+
+        }
+
+        return CalculatorResult.UNDEFINED;
+
+
+    }
+
+
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(BigInteger l, ZonedDateTime r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(BigInteger l, Duration r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(ZonedDateTime l, BigInteger r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(ZonedDateTime l, ZonedDateTime r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(ZonedDateTime l, Duration r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(Duration l, BigInteger r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(Duration l, ZonedDateTime r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+    public CalculatorResult op(Duration l, Duration r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
+
+    public CalculatorResult op(Duration r) {
+        return CalculatorResult.UNDEFINED;
+    }
+
     // the operation itself is specified in the subclasses
 
     // add more arguments to the existing list of arguments args

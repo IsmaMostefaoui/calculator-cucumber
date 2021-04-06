@@ -4,8 +4,6 @@ import visitor.Countator;
 import visitor.Evaluator;
 import visitor.Stringator;
 
-import java.math.BigInteger;
-
 public class Calculator {
 
     /*
@@ -24,7 +22,7 @@ public class Calculator {
 
     public void print(Expression e, Notation notation, int radix) {
         System.out.println("\n\nThe result of evaluating expression " + convertToString(e, notation));
-        System.out.println("is: " + eval(e).toString(radix) + ".");
+        System.out.println("is: " + eval(e).asNumber().toString(radix) + ".");
     }
 
     public void print(Expression e) {
@@ -47,7 +45,9 @@ public class Calculator {
         printExpressionDetails(e, Notation.INFIX);
     }
 
-    public BigInteger eval(Expression e) {
+
+    public CalculatorResult eval(Expression e) {
+
         // create a new visitor to evaluate expressions
         Evaluator v = new Evaluator();
         // and ask the expression to accept this visitor to start the evaluation process

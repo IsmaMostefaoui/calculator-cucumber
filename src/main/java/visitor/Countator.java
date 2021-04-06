@@ -48,6 +48,18 @@ public class Countator extends Visitor {
         countOps += 1;
     }
 
+    @Override
+    public void visit(MyDateTime myDateTime) {
+        countNbs = 1;
+        countDepth = 0;
+    }
+
+    @Override
+    public void visit(MyTimeDuration myTimeDuration) {
+        countNbs = 1;
+        countDepth = 0;
+    }
+
     public int getCountNbs() {
         return countNbs;
     }

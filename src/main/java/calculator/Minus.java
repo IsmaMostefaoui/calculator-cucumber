@@ -1,6 +1,9 @@
 package calculator;
 
+
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 final public class Minus extends Operation {
@@ -25,7 +28,31 @@ final public class Minus extends Operation {
         neutral = BigInteger.ZERO;
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.subtract(r).mod(modulo));
+
+    @Override
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.subtract(r).mod(modulo));
+    }
+
+    @Override
+    public CalculatorResult op(ZonedDateTime l, ZonedDateTime r) {
+        return new CalculatorResult(Duration.between(l, r));
+    }
+
+    @Override
+    public CalculatorResult op(ZonedDateTime l, Duration r) {
+        return new CalculatorResult(l.minus(r));
+    }
+
+
+    @Override
+    public CalculatorResult op(Duration l, Duration r) {
+        return new CalculatorResult(l.minus(r));
+    }
+
+    @Override
+    public CalculatorResult op(Duration r) {
+        return new CalculatorResult(ZonedDateTime.now().minus(r));
+
     }
 }

@@ -25,7 +25,7 @@ final public class GCD extends Operation {
         neutral = BigInteger.ONE;
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.gcd(r).mod(modulo));
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.gcd(r).mod(modulo));
     }
 }

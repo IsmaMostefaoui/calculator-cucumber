@@ -11,8 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMax {
 
@@ -36,6 +35,7 @@ public class TestMax {
             op = new Max(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountDepth());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -46,6 +46,7 @@ public class TestMax {
             op = new Max(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountOps());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -56,6 +57,7 @@ public class TestMax {
             op = new Max(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(2), c.count(op).getCountNbs());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -68,8 +70,9 @@ public class TestMax {
             List<Expression> e = new ArrayList<>();
             Collections.addAll(e, mn1, mn2);
             Max m = new Max(e);
-            assertEquals(c.eval(m), mn2.getValue());
+            assertEquals(c.eval(m).asNumber(), mn2.getValue());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 }

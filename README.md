@@ -9,7 +9,7 @@
 This repository contains Java 11 code for computing arithmetic expressions. It is deliberately incomplete as it serves to be the basis of all kinds of extensions, such as a more sophisticated Calculator application. The code was written to be used for educational purposes at the University of Mons, Belgium.
 
 
-### Unit testing and BDD
+### calculator.Unit testing and BDD
 
 *  All tests can be found in the src\test directory. They serve as executable documentation of the source code.
 *  The source code is accompanied by a set of JUnit 5 unit tests. These tests can be written and run in the usual way. If you are not familiar with unit testing or JUnit 5, please refer to https://junit.org/junit5/.

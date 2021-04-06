@@ -15,7 +15,8 @@ final public class ModularInverse extends Operation {
         symbol = "mod";
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) throws ArithmeticException {
-        return (l.modInverse(r));
+    @Override
+    public CalculatorResult op(BigInteger l, BigInteger r) throws ArithmeticException {
+        return new CalculatorResult(l.modInverse(r));
     }
 }

@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMin {
 
@@ -30,6 +29,7 @@ public class TestMin {
             op = new Min(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountDepth());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -40,6 +40,7 @@ public class TestMin {
             op = new Min(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(1), c.count(op).getCountOps());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -50,6 +51,7 @@ public class TestMin {
             op = new Min(new ArrayList<>(Arrays.asList(new MyNumber("4"), new MyNumber("7"))));
             assertEquals(Integer.valueOf(2), c.count(op).getCountNbs());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 
@@ -62,8 +64,9 @@ public class TestMin {
             List<Expression> e = new ArrayList<>();
             Collections.addAll(e, mn1, mn2);
             Min m = new Min(e);
-            assertEquals(c.eval(m), mn1.getValue());
+            assertEquals(c.eval(m).asNumber(), mn1.getValue());
         } catch (IllegalConstruction exception) {
+            fail();
         }
     }
 }

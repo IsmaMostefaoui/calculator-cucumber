@@ -15,7 +15,7 @@ final public class Max extends Operation {
         symbol = "max";
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.max(r));
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.max(r));
     }
 }

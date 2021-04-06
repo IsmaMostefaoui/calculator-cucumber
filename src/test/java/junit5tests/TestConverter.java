@@ -65,7 +65,7 @@ public class TestConverter {
         try {
             MyNumber number1 = new MyNumber(value1, radix);
             Converter number2 = new Converter(new MyNumber(value2), radix);
-            assertEquals(c.eval(number1), c.eval(number2));
+            assertEquals(c.eval(number1).asNumber(), c.eval(number2).asNumber());
         } catch (Exception e) {
             fail();
         }

@@ -15,7 +15,7 @@ final public class Modulo extends Operation {
         symbol = "mod";
     }
 
-    public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.mod(r));
+    public CalculatorResult op(BigInteger l, BigInteger r) {
+        return new CalculatorResult(l.mod(r));
     }
 }

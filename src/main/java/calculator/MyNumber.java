@@ -11,6 +11,7 @@ public class MyNumber implements Expression {
     private final BigInteger modulo;
     private final boolean positive;
 
+
     public /*constructor*/ MyNumber(String v) throws NumberFormatException {
         modulo = new BigInteger(Integer.MAX_VALUE + "");
         value = new BigInteger(v).mod(modulo);
