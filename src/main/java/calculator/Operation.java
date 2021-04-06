@@ -2,13 +2,14 @@ package calculator;
 
 import visitor.Visitor;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Operation implements Expression {
+public abstract class Operation implements Expression, Serializable {
     public List<Expression> args;
     public Notation notation = Notation.INFIX; //by default, expressions are rendered as strings using infix notation
     protected String symbol;

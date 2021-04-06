@@ -152,4 +152,57 @@ public class TestEvaluator {
         }
     }
 
+    @Test
+    public void testEvaluatorAnd() {
+        value1 = "1";
+        value2 = "0";
+        try {
+            op = new And(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals(BigInteger.ZERO, calc.eval(op).asNumber());
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEvaluatorOr() {
+        try {
+            op = new Or(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals(BigInteger.ONE, calc.eval(op).asNumber());
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEvaluatorNot() {
+        try {
+            op = new Not(Arrays.asList(new MyNumber(value1)));
+            assertEquals(BigInteger.ZERO, calc.eval(op).asNumber());
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEvaluatorImply() {
+
+        try {
+            op = new Imply(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals(BigInteger.ONE, calc.eval(op).asNumber());
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testEvaluatorEquivalence() {
+
+        try {
+            op = new Equivalence(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+            assertEquals(BigInteger.ONE, calc.eval(op).asNumber());
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
 }

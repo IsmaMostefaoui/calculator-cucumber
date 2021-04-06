@@ -2,6 +2,7 @@ package visitor;
 
 import calculator.*;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Evaluator extends Visitor {
@@ -30,6 +31,7 @@ public class Evaluator extends Visitor {
 
 
     public void visit(Operation o) throws DivisionByZero {
+
         ArrayList<CalculatorResult> evaluatedArgs = new ArrayList<>();
 
         //first loop to recursively evaluate each subexpression
@@ -45,9 +47,14 @@ public class Evaluator extends Visitor {
         for (int counter = 1; counter < max; counter++) {
             temp = o.op(temp, evaluatedArgs.get(counter));
         }
+        if (evaluatedArgs.size() == 1) {
+            // unary operation
+            temp = o.op(temp.asNumber(), BigInteger.ZERO);
+        }
         // store the accumulated result
         computedValue = temp;
     }
+
 
     @Override
     public void visit(MyDateTime myDateTime) {
@@ -60,3 +67,4 @@ public class Evaluator extends Visitor {
     }
 
 }
+

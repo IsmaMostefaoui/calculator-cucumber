@@ -4,6 +4,10 @@ import visitor.Countator;
 import visitor.Evaluator;
 import visitor.Stringator;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Calculator {
 
     /*
@@ -15,9 +19,23 @@ public class Calculator {
      public Expression read(String s)
     */
 
+    private Expression[] memory;
+    private CommandHandler ch;
+    private List<Expression> actionHistory;
+
+    public Calculator(int memorySize) {
+        this.memory = new Expression[memorySize];
+        this.ch = new CommandHandler();
+        this.actionHistory = new ArrayList<>();
+    }
+
+    public Calculator() {
+        this(3);
+    }
+
     public void print(Expression e, Notation notation) {
-        System.out.println("\n\nThe result of evaluating expression " + convertToString(e, notation));
-        System.out.println("is: " + eval(e) + ".");
+        System.out.println("The result of evaluating expression " + convertToString(e, notation));
+        System.out.println("is: " + _eval(e) + ".");
     }
 
     public void print(Expression e, Notation notation, int radix) {
@@ -46,7 +64,7 @@ public class Calculator {
     }
 
 
-    public CalculatorResult eval(Expression e) {
+    public CalculatorResult _eval(Expression e) {
 
         // create a new visitor to evaluate expressions
         Evaluator v = new Evaluator();
@@ -60,6 +78,95 @@ public class Calculator {
         }
         // and return the result of the evaluation at the end of the process
         return v.getResult();
+    }
+
+    public CalculatorResult eval(Expression e) {
+        ch.execute(e);
+        actionHistory.add(e);
+        return _eval(e);
+    }
+
+    public void printLog(Notation n) {
+        for (Expression e : actionHistory) {
+            System.out.println(convertToString(e, n));
+        }
+    }
+
+    public List<Expression> getActionHistory() {
+        return actionHistory;
+    }
+
+    public Expression getCurrent() {
+        return ch.getCurrent();
+    }
+
+    public Expression undo() {
+        ch.undo();
+        actionHistory.add(ch.getCurrent());
+        return ch.getCurrent();
+    }
+
+    public Expression redo() {
+        ch.redo();
+        actionHistory.add(ch.getCurrent());
+        return ch.getCurrent();
+    }
+
+    public void storeExpression(Expression e, int indexOfMemory) throws OutOfMemoryError {
+        if (memory.length <= indexOfMemory)
+            throw new OutOfMemoryError();
+        memory[indexOfMemory] = e;
+    }
+
+    public Expression getMemory(int indexOfMemory) throws OutOfMemoryError {
+        if (memory.length <= indexOfMemory)
+            throw new OutOfMemoryError();
+        return memory[indexOfMemory];
+    }
+
+    public void setMemory(Expression e, int indexOfMemory) throws OutOfMemoryError {
+        if (memory.length <= indexOfMemory)
+            throw new OutOfMemoryError();
+        memory[indexOfMemory] = e;
+    }
+
+    public void clearHistory() {
+        actionHistory.clear();
+    }
+
+    public void saveHistory() {
+        try {
+            FileOutputStream file = new FileOutputStream("history.bin");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            // Method for serialization of object
+            out.writeObject(actionHistory);
+
+            out.close();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void loadHistory() {
+        List<Expression> loadedHistory = null;
+        try {
+            FileInputStream file = new FileInputStream("history.bin");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            loadedHistory = (List<Expression>) in.readObject();
+
+            in.close();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (loadedHistory != null) {
+
+            this.actionHistory.addAll(loadedHistory);
+        }
     }
 
     public String convertToString(Expression e, Notation notation) {

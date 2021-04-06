@@ -2,9 +2,10 @@ package calculator;
 
 import visitor.Visitor;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class MyNumber implements Expression {
+public class MyNumber implements Expression, Serializable {
     private final BigInteger value;
     private final String representation;
     private final int radix;
@@ -51,6 +52,7 @@ public class MyNumber implements Expression {
         radix = 10;
         this.positive = positive;
     }
+
 
     public /*constructor*/ MyNumber(String v, int radix) throws InnapropriateBase, NumberFormatException {
         if (radix < 2 || radix > 36) {

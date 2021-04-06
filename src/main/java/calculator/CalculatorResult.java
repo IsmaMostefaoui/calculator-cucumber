@@ -7,6 +7,8 @@ import java.time.ZonedDateTime;
 public class CalculatorResult {
 
     public static final CalculatorResult UNDEFINED = new CalculatorResult();
+    public static final CalculatorResult TRUE = new CalculatorResult(BigInteger.ONE);
+    public static final CalculatorResult FALSE = new CalculatorResult(BigInteger.ZERO);
     private final ResultType type;
     private BigInteger computedValue;
     private Duration durationValue;
@@ -20,11 +22,11 @@ public class CalculatorResult {
         this.zonedDatetimeValue = zonedDatetimeValue;
     }
 
-
     public CalculatorResult(Duration durationValue) {
         this.type = ResultType.DURATION;
         this.durationValue = durationValue;
     }
+
 
     public CalculatorResult(BigInteger computedValue) {
         this.type = ResultType.NUMBER;
@@ -59,7 +61,6 @@ public class CalculatorResult {
     public ResultType getType() {
         return this.type;
     }
-
 
     public enum ResultType {NUMBER, DURATION, DATETIME, UNDEFINED}
 

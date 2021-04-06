@@ -159,4 +159,39 @@ public class CalculatorSteps {
     }
 
 
+    @Given("a boolean operation {string}")
+    public void givenABooleanOperation(String s) {
+        // Write code here that turns the phrase above into concrete actions
+        params = new ArrayList<>(); // create an empty set of parameters to be filled in
+        try {
+            switch (s) {
+                case "&": {
+                    op = new And(params);
+                    break;
+                }
+                case "|": {
+                    op = new Or(params);
+                    break;
+                }
+                case "!": {
+                    op = new Not(params);
+                    break;
+                }
+                case "=>": {
+                    op = new Imply(params);
+                    break;
+                }
+                case "<=>": {
+                    op = new Equivalence(params);
+                    break;
+                }
+                default: {
+                    fail();
+                }
+            }
+        } catch (IllegalConstruction e) {
+            fail();
+        }
+    }
+
 }

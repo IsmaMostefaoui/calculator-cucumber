@@ -1,9 +1,6 @@
 ---
-name: Bug report
-about: Create a bug report to help us improve
-title: "[BUG]"
-labels: bug
-assignees: ''
+name: Bug report about: Create a bug report to help us improve title: "[BUG]"
+labels: bug assignees: ''
 
 ---
 
@@ -20,7 +17,8 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Version**
-What was the version of the code on which you encountered the problem? If relevant, also provide the specifics of your operating system or other tools and their version that may be important to understand or reproduce the bug. 
+What was the version of the code on which you encountered the problem? If relevant, also provide the specifics of your
+operating system or other tools and their version that may be important to understand or reproduce the bug.
 
 **Additional context**
 Add any other context about the problem here.
