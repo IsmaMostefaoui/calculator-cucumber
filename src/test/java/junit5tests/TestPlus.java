@@ -1,21 +1,20 @@
 package junit5tests;
 
+import calculator.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//Import Junit5 libraries for unit testing:
 import static org.junit.jupiter.api.Assertions.*;
-
-import calculator.*;
-import org.junit.jupiter.api.*;
-import visitor.Stringator;
 
 
 public class TestPlus {
 
-    private final int value1 = 8;
-    private final int value2 = 6;
+    private final String value1 = "8";
+    private final String value2 = "6";
     private Plus op;
     private List<Expression> params;
     private Calculator c;
@@ -23,9 +22,12 @@ public class TestPlus {
     @BeforeEach
     public void setUp() {
         c = new Calculator();
-        params = new ArrayList<>(Arrays.asList(new MyNumber(value1),new MyNumber(value2)));
-        try { op = new Plus(params); }
-        catch(IllegalConstruction e) { fail(); }
+        params = new ArrayList<>(Arrays.asList(new MyNumber(value1), new MyNumber(value2)));
+        try {
+            op = new Plus(params);
+        } catch (IllegalConstruction e) {
+            fail();
+        }
     }
 
     @Test
@@ -53,9 +55,10 @@ public class TestPlus {
             Plus e = new Plus(p, Notation.INFIX);
             assertEquals(op, e);
             assertEquals(e, e);
-            assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyNumber(5), new MyNumber(4))), Notation.INFIX));
+            assertNotEquals(e, new Plus(new ArrayList<>(Arrays.asList(new MyNumber("5"), new MyNumber("4"))), Notation.INFIX));
+        } catch (IllegalConstruction e) {
+            fail();
         }
-        catch(IllegalConstruction e) { fail(); }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -71,8 +74,9 @@ public class TestPlus {
         try {
             Plus e = new Plus(p, Notation.INFIX);
             assertEquals(e.hashCode(), op.hashCode());
+        } catch (IllegalConstruction e) {
+            fail();
         }
-        catch(IllegalConstruction e) { fail(); }
     }
 
     @Test
@@ -98,19 +102,19 @@ public class TestPlus {
 
     @Test
     public void testPrefix() {
-        String prefix = "+ (" + value1 + ", " + value2 + ")";
+        String prefix = "+ (" + value1 + "_{10}, " + value2 + "_{10})";
         assertEquals(prefix, c.convertToString(op, Notation.PREFIX));
     }
 
     @Test
     public void testInfix() {
-        String infix = "( " + value1 + " + " + value2 + " )";
+        String infix = "( " + value1 + "_{10} + " + value2 + "_{10} )";
         assertEquals(infix, c.convertToString(op, Notation.INFIX));
     }
 
     @Test
     public void testPostfix() {
-        String postfix = "(" + value1 + ", " + value2 + ") +";
+        String postfix = "(" + value1 + "_{10}, " + value2 + "_{10}) +";
         assertEquals(postfix, c.convertToString(op, Notation.POSTFIX));
     }
 

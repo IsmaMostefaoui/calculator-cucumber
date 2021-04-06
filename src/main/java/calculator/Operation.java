@@ -2,6 +2,7 @@ package calculator;
 
 import visitor.Visitor;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,8 @@ public abstract class Operation implements Expression {
     public List<Expression> args;
     public Notation notation = Notation.INFIX; //by default, expressions are rendered as strings using infix notation
     protected String symbol;
-    protected int neutral; // the neutral element of the operation (e.g. 1 for *, 0 for +)
+    protected BigInteger neutral; // the neutral element of the operation (e.g. 1 for *, 0 for +)
+    protected BigInteger modulo;
 
     // It is not allowed to create operation that have a null list of arguments.
     // Note that it is allowed to have an EMPTY list of arguments.
@@ -32,7 +34,7 @@ public abstract class Operation implements Expression {
         return args;
     }
 
-    abstract public int op(int l, int r);
+    abstract public BigInteger op(BigInteger l, BigInteger r);
     // the operation itself is specified in the subclasses
 
     // add more arguments to the existing list of arguments args
@@ -63,7 +65,7 @@ public abstract class Operation implements Expression {
     @Override
     public int hashCode() {
         int result = 5, prime = 31;
-        result = prime * result + neutral;
+        result = prime * result + neutral.intValue();
         result = prime * result + symbol.hashCode();
         result = prime * result + args.hashCode();
         return result;

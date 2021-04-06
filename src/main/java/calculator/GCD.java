@@ -3,29 +3,29 @@ package calculator;
 import java.math.BigInteger;
 import java.util.List;
 
-final public class Times extends Operation {
+final public class GCD extends Operation {
 
-    public /*constructor*/ Times(List<Expression> elist) throws IllegalConstruction {
+    public /*constructor*/ GCD(List<Expression> elist) throws IllegalConstruction {
         super(elist);
-        symbol = "*";
+        symbol = "gcd";
         neutral = BigInteger.ONE;
         modulo = new BigInteger(Integer.MAX_VALUE + "");
     }
 
-    public /*constructor*/ Times(List<Expression> elist, MyNumber modulo) throws IllegalConstruction {
+    public /*constructor*/ GCD(List<Expression> elist, MyNumber modulo) throws IllegalConstruction {
         super(elist);
-        symbol = "*";
+        symbol = "gcd";
         neutral = BigInteger.ONE;
         this.modulo = modulo.getValue();
     }
 
-    public Times(List<Expression> elist, Notation n) throws IllegalConstruction {
+    public GCD(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
-        symbol = "*";
+        symbol = "/";
         neutral = BigInteger.ONE;
     }
 
     public BigInteger op(BigInteger l, BigInteger r) {
-        return (l.multiply(r).mod(modulo));
+        return (l.gcd(r).mod(modulo));
     }
 }
