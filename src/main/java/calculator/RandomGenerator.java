@@ -11,7 +11,6 @@ public class RandomGenerator implements Expression {
     public /*constructor*/ RandomGenerator(String v) throws NumberFormatException {
         BigInteger upperLimit = new BigInteger(v);
         BigInteger temp;
-        BigInteger randomNumber;
         do {
             temp = new BigInteger(upperLimit.bitLength(), new Random());
         } while (temp.compareTo(upperLimit) >= 0);

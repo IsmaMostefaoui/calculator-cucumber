@@ -94,18 +94,11 @@ Feature: Integer Arithmetic Expressions
     Then the operation evaluates to <result>
 
     Examples:
-    <<<<<<< HEAD
-      | op  | n1 | n2 | result |
-      | "+" | 4  | 5  | 9      |
-      | "-" | 8  | 5  | 3      |
-      | "*" | 7  | 2  | 14     |
-      | "/" | 6  | 2  | 3      |
-  =======
-  | op  |n1|n2|result|
-  | "+" | 4| 5|     9|
-  | "-" | 8| 5|     3|
-  | "*" | 7| 2|    14|
-  | "/" | 6| 2|     3|
+    | op  |n1|n2|result|
+    | "+" | 4| 5|     9|
+    | "-" | 8| 5|     3|
+    | "*" | 7| 2|    14|
+    | "/" | 6| 2|     3|
 
   Scenario Outline: Conjunction of two numbers
     Given a boolean operation '&'
@@ -169,4 +162,4 @@ Feature: Integer Arithmetic Expressions
       | 1  | 0  | 0      |
       | 0  | 1  | 0      |
       | 0  | 0  | 1      |
-  >>>>>>> isma-plugin
+

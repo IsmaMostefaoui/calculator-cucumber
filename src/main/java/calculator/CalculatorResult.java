@@ -3,6 +3,7 @@ package calculator;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CalculatorResult {
 
@@ -56,6 +57,27 @@ public class CalculatorResult {
             return this.zonedDatetimeValue;
         }
         throw new ClassCastException();
+    }
+
+    public String toString() {
+        switch (this.type) {
+
+            case NUMBER:
+                return this.computedValue.toString();
+            case DURATION:
+                return String.format("%dd %dh %dm %ds"
+                        , this.durationValue.toDays()
+                        , this.durationValue.toHours()
+                        , this.durationValue.toMinutes()
+                        , this.durationValue.toSeconds());
+
+            case DATETIME:
+                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss z");
+                return this.zonedDatetimeValue.format(formatter2);
+            case UNDEFINED:
+                return "UNDEFINED";
+        }
+        throw new RuntimeException("Unexpected result type: "+this.type);
     }
 
     public ResultType getType() {

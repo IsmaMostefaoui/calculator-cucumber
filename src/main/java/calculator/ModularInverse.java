@@ -7,12 +7,12 @@ final public class ModularInverse extends Operation {
 
     public /*constructor*/ ModularInverse(List<Expression> elist) throws IllegalConstruction {
         super(elist);
-        symbol = "mod";
+        symbol = "modinv";
     }
 
     public ModularInverse(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
-        symbol = "mod";
+        symbol = "modinv";
     }
 
     @Override
