@@ -50,9 +50,5 @@ final public class Minus extends Operation {
         return new CalculatorResult(l.minus(r));
     }
 
-    @Override
-    public CalculatorResult op(Duration r) {
-        return new CalculatorResult(ZonedDateTime.now().minus(r));
 
-    }
 }

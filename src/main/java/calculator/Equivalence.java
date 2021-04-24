@@ -23,7 +23,7 @@ final public class Equivalence extends Operation {
             Not not = new Not(Arrays.asList());
             Or or = new Or(Arrays.asList());
             And and = new And(Arrays.asList());
-            return and.op(or.op(not.op(l, BigInteger.ZERO).asNumber(), r), or.op(not.op(r, BigInteger.ZERO).asNumber(), l));
+            return and.op(or.op(not.op(l).asNumber(), r), or.op(not.op(r).asNumber(), l));
         } catch (IllegalConstruction e) {
             e.printStackTrace();
         }

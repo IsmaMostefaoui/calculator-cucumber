@@ -13,6 +13,10 @@ public abstract class Visitor {
 
     public abstract void visit(Operation o);
 
+    public  void visit(UnaryOperation o) {
+        this.visit((Operation) o);
+    }
+
     public abstract void visit(RandomGenerator r);
 
     public abstract void visit(MyDateTime myDateTime);

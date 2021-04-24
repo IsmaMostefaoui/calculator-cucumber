@@ -39,10 +39,6 @@ final public class Plus extends Operation {
         return new CalculatorResult(l.plus(r));
     }
 
-    @Override
-    public CalculatorResult op(Duration r) {
-        return new CalculatorResult(ZonedDateTime.now().plus(r));
-    }
 
     @Override
     public CalculatorResult op(Duration l, ZonedDateTime r) {

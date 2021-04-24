@@ -18,7 +18,7 @@ final public class Not extends UnaryOperation {
     }
 
     @Override
-    public CalculatorResult op(BigInteger l, BigInteger r) {
+    public CalculatorResult op(BigInteger l) {
         return !l.equals(BigInteger.ZERO) ? CalculatorResult.FALSE : CalculatorResult.TRUE;
     }
 }

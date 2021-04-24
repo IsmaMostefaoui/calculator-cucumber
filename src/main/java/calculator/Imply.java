@@ -22,7 +22,7 @@ final public class Imply extends Operation {
         try {
             Not not = new Not(Arrays.asList());
             Or or = new Or(Arrays.asList());
-            return or.op(not.op(l, BigInteger.ONE).asNumber(), r);
+            return or.op(not.op(l).asNumber(), r);
         } catch (IllegalConstruction e) {
             e.printStackTrace();
         }

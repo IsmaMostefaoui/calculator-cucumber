@@ -30,6 +30,20 @@ public class Evaluator extends Visitor {
     }
 
 
+
+    public  void visit(UnaryOperation o) {
+        ArrayList<CalculatorResult> evaluatedArgs = new ArrayList<>();
+
+        //first loop to recursively evaluate each subexpression
+        for (Expression a : o.args) {
+            a.accept(this);
+            evaluatedArgs.add(computedValue);
+        }
+        //second loop to accummulate all the evaluated subresults
+
+        CalculatorResult temp = evaluatedArgs.get(0);
+        computedValue = o.op(temp);
+    }
     public void visit(Operation o) throws DivisionByZero {
 
         ArrayList<CalculatorResult> evaluatedArgs = new ArrayList<>();
@@ -43,14 +57,15 @@ public class Evaluator extends Visitor {
 
         CalculatorResult temp = evaluatedArgs.get(0);
 
+
+
         int max = evaluatedArgs.size();
+
         for (int counter = 1; counter < max; counter++) {
             temp = o.op(temp, evaluatedArgs.get(counter));
         }
-        if (evaluatedArgs.size() == 1) {
-            // unary operation
-            temp = o.op(temp.asNumber(), BigInteger.ZERO);
-        }
+
+
         // store the accumulated result
         computedValue = temp;
     }

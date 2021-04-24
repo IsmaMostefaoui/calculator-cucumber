@@ -119,9 +119,6 @@ public abstract class Operation implements Expression, Serializable {
     }
 
 
-    public CalculatorResult op(Duration r) {
-        return CalculatorResult.UNDEFINED;
-    }
 
     // the operation itself is specified in the subclasses
 

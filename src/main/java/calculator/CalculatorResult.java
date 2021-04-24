@@ -42,6 +42,7 @@ public class CalculatorResult {
         if (this.type == ResultType.NUMBER) {
             return this.computedValue;
         }
+        System.out.println(this.type);
         throw new ClassCastException();
     }
 

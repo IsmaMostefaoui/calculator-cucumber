@@ -4,6 +4,7 @@ import calculator.*;
 import calculator.antlr4.CalculatorBaseVisitor;
 import calculator.antlr4.CalculatorParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,6 +13,57 @@ import java.util.List;
 public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
 
     private  Calculator c;
+
+
+    public CalculatorParserVisitor(Calculator c) {
+        this.c = c;
+    }
+
+
+    @Override
+    public Expression visitCalculation(CalculatorParser.CalculationContext ctx) {
+        return visit(ctx.expr());
+    }
+
+    @Override
+    public Expression visitPower(CalculatorParser.PowerContext ctx) {
+        return visit(ctx.pow());
+    }
+
+    @Override
+    public Expression visitUnitConvert(CalculatorParser.UnitConvertContext ctx) {
+        double amount = Double.parseDouble(ctx.NUMBER().getText());
+        String from = ctx.unit(0).getText();
+        String to = ctx.unit(1).getText();
+        System.out.println(c.convertUnit(amount, from, to));
+        return null;
+    }
+
+    @Override
+    public Expression visitCurrConvert(CalculatorParser.CurrConvertContext ctx) {
+        double amount = Double.parseDouble(ctx.NUMBER().getText());
+        String from = ctx.IDENTIFIER(0).getText().toUpperCase();
+        String to = ctx.IDENTIFIER(1).getText().toUpperCase();
+        try {
+            System.out.println(c.convertCurrency(amount, from, to));
+        } catch (IOException e) {
+            System.out.println("An error occurred while accessing the currency exchange rate API.");
+        }
+        return null;
+    }
+
+    @Override
+    public Expression visitPow(CalculatorParser.PowContext ctx) {
+        Expression left = visit(ctx.atom());
+        if (ctx.pow() != null){
+            try {
+                return  new Exponents(Arrays.asList(left, visit(ctx.pow())));
+            } catch (IllegalConstruction illegalConstruction) {
+                throw new RuntimeException();
+            }
+        }
+        return left;
+    }
 
     @Override
     public Expression visitBasedNumber(CalculatorParser.BasedNumberContext ctx) {
@@ -24,9 +76,6 @@ public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
     }
 
 
-    public CalculatorParserVisitor(Calculator c) {
-        this.c = c;
-    }
 
     @Override
     public Expression visitSaveM(CalculatorParser.SaveMContext ctx) {
@@ -83,12 +132,6 @@ public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
 
     }
 
-    @Override
-    public Expression visitCalculation(CalculatorParser.CalculationContext ctx) {
-        CalculatorParser.ExprContext expr = ctx.expr();
-        return expr.isEmpty() ? null : visit(expr);
-    }
-
 
     @Override
     public Expression visitRand(CalculatorParser.RandContext ctx) {
@@ -102,9 +145,8 @@ public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
         try {
             return new Not(Collections.singletonList(visit(ctx.expr())));
         } catch (IllegalConstruction illegalConstruction) {
-            illegalConstruction.printStackTrace();
+            throw new RuntimeException();
         }
-        return super.visitNot(ctx);
     }
 
     @Override
@@ -170,17 +212,25 @@ public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
         } catch (IllegalConstruction illegalConstruction) {
             throw new RuntimeException();
         }
-
     }
 
     @Override
     public Expression visitUnaryPlus(CalculatorParser.UnaryPlusContext ctx) {
-        return super.visitUnaryPlus(ctx);
+        try {
+            return new UnaryPlus(visit(ctx.expr()));
+        } catch (IllegalConstruction illegalConstruction) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public Expression visitUnaryMinus(CalculatorParser.UnaryMinusContext ctx) {
-        return super.visitUnaryMinus(ctx);
+        try {
+            return new UnaryMinus(visit(ctx.expr()));
+        } catch (IllegalConstruction illegalConstruction) {
+            throw new RuntimeException();
+        }
+
     }
 
     @Override

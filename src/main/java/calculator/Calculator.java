@@ -23,6 +23,7 @@ public class Calculator {
     private CommandHandler ch;
     private List<Expression> actionHistory;
 
+    private UnitsConverter converter = new UnitsConverter();
     public Calculator(int memorySize) {
         this.memory = new Expression[memorySize];
         this.ch = new CommandHandler();
@@ -179,6 +180,15 @@ public class Calculator {
         e.accept(c);
         return c;
     }
+
+    public Double convertUnit(double amount, String from, String to) {
+       return converter.convertUnit(amount, from, to);
+    }
+
+    public Double convertCurrency(double amount, String from, String to) throws IOException {
+        return converter.convertCurrency(amount, from, to);
+    }
+
 
     /*
      We could also have other methods, e.g. to verify whether an expression is syntactically correct

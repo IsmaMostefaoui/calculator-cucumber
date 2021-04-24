@@ -58,6 +58,8 @@ public class Main {
                     default:
                         try {
                             Expression e = parser.parse(input);
+
+
                             if(e != null) {
                                 CalculatorResult result = c.eval(e);
                                 System.out.println(resultPrefix + result);

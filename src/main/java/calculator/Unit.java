@@ -3,6 +3,7 @@ package calculator;
 public enum Unit {
 
     m("length", "m", 1),
+    cm("length", "cm", 0.01),
     ft("length", "ft", 0.3048),
     in("length", "in", 0.0254),
     mi("length", "mi", 1609.334),
