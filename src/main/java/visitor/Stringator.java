@@ -1,6 +1,8 @@
 package visitor;
 
 import calculator.*;
+import calculator.expression.*;
+import calculator.expression.operation.Operation;
 
 import java.time.Duration;
 import java.util.ArrayList;

@@ -46,6 +46,103 @@ be used for educational purposes at the University of Mons, Belgium.
 * When packaging the code using "mvn package" the JavaDoc code documentation will be generated and stored in
   target/site/apidocs.
 
+
+## Usage
+We have a list of the following operations:
+
+### CLI Commands
+```exit``` exit the cli.
+### Basic arithmetic
+positive number: ```1``` 
+
+negative number: ```-1```
+
+number radix: ```2x010```  radix "x" number in the provided radix
+
+datetime:
+* ```'2020-12-12 10:10 PM UTC+2'```
+* ```'10:10 PM'``` today at 10:10 pm
+
+duration: ```'1d 2h 1m 15s'``` 1 day 2 hours 1 minute and 15 seconds
+
+addition: ```1+2```
+
+subtraction: ```1-2```
+
+multiplication : ```1*2```
+
+division: ```1/2```
+
+power: ```1^2```
+
+
+### Boolean Operations
+Boolean expressions work with number. 0 is false and everything else is true (including negative numbers).
+
+conjunction : ```1 & 1```
+
+disjunction : ```1 | 1```
+
+negation : ```!1```
+
+exclusive disjunction  : ```1 || 1```
+
+implication: ```1=>1```
+
+equivalence: ```1<=>1```
+
+
+### Time Operation
+addition: ```'2020-12-12 10:10 PM UTC+2' + '1d'```
+
+subtraction: ```'2020-12-12 10:10 PM UTC+2' - '1d'```
+
+unary minus : ``` - '1d 2h'``` today minus 1 day and 2 hours
+unary plus : ``` + '1d 2h'``` today plus 1 day and 2 hours
+
+
+### Unit Conversion
+```unit 1ft to m``` convert 1 feet to meters
+
+### Currency Conversion
+```curr 15 usd to eur``` convert 15 usd to euros
+
+
+### Modular Arithmetic Operations
+modulo: ```1 % 2```
+
+inverse modulo: ```1 !% 2``` or ```1 modinv 2```
+
+### Functions
+minimum: ```min(1,2,...) ```
+
+maximum: ```max(1,2,...) ```
+
+greatest common divisor: ```gcd(1,2)```
+
+random generation: ```rand(2)``` returns random number between 0 and the provided parameter.
+
+number radix conversion: ```conv(1+2, 3)``` return the result of the provided expression converted to the provided radix
+
+
+### Memory Functionalities
+
+```savem 1+2 M1```: save the given expression in the given memory socket (denoted by the number after 'M') 
+
+```loadm M1```:  evaluate the expression saved in the given memory socket (denoted by the number after 'M')
+
+```history```: print the history of the calculator
+
+```undo```: removes the last  element from history
+
+```redo```: cancel the last undo command
+
+```save```: save the history in a file called **history.bin**
+
+```load```: load the history from **history.bin**
+
+
+
 ## Built With
 
 * [Maven](https://maven.apache.org/) - an open source build automation and dependency management tool

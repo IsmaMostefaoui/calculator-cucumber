@@ -1,5 +1,8 @@
 package calculator;
 
+import calculator.error.NoActionLeftInHistory;
+import calculator.expression.Expression;
+
 import java.io.Serializable;
 import java.util.Stack;
 
@@ -30,10 +33,16 @@ public class CommandHandler implements Serializable {
     }
 
     public void undo() throws NoActionLeftInHistory {
-        if (actionQueue.size() == 0)
+        if(currentAction != null && actionQueue.size() == 0) {
+            actionQueueReverse.push(currentAction);
+            currentAction = null;
+        } else if (actionQueue.size() == 0 ) {
             throw new NoActionLeftInHistory();
-        actionQueueReverse.push(currentAction);
-        currentAction = actionQueue.pop();
+        } else {
+            actionQueueReverse.push(currentAction);
+            currentAction = actionQueue.pop();
+        }
+
     }
 
     public void redo() throws NoActionLeftInHistory {

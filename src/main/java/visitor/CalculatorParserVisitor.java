@@ -3,6 +3,11 @@ package visitor;
 import calculator.*;
 import calculator.antlr4.CalculatorBaseVisitor;
 import calculator.antlr4.CalculatorParser;
+import calculator.error.CalculatorMemoryError;
+import calculator.error.IllegalConstruction;
+import calculator.error.InnapropriateBase;
+import calculator.expression.*;
+import calculator.expression.operation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,24 +73,60 @@ public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
     @Override
     public Expression visitBasedNumber(CalculatorParser.BasedNumberContext ctx) {
         try {
-            return new MyNumber(ctx.NUMBER(0).getText(), Integer.parseInt(ctx.NUMBER(1).getText()));
+            return new MyNumber(ctx.NUMBER(1).getText(), Integer.parseInt(ctx.NUMBER(0).getText()));
         } catch (InnapropriateBase innapropriateBase) {
             throw new RuntimeException();
         }
 
     }
 
+    @Override
+    public Expression visitGcd(CalculatorParser.GcdContext ctx) {
+        try {
+            return new GCD(Arrays.asList(visit(ctx.expr(0)), visit(ctx.expr(1))));
+        } catch (IllegalConstruction illegalConstruction) {
+            throw new RuntimeException();
+        }
 
+    }
+
+    @Override
+    public Expression visitMinMax(CalculatorParser.MinMaxContext ctx) {
+        List<Expression> params = new ArrayList<>();
+
+        ctx.expr().forEach(exprContext -> params.add(visit(exprContext)));
+
+        try {
+            if (ctx.op.getType() == CalculatorParser.MIN) {
+                return new Min(params);
+            } else {
+                return new Max(params);
+            }
+        } catch (IllegalConstruction illegalConstruction) {
+            throw new RuntimeException();
+        }
+    }
 
     @Override
     public Expression visitSaveM(CalculatorParser.SaveMContext ctx) {
-        c.setMemory(visit(ctx.expr()), Integer.parseInt(ctx.NUMBER().getText()));
+        try {
+            c.setMemory(visit(ctx.expr()), Integer.parseInt(ctx.NUMBER().getText()));
+        } catch (CalculatorMemoryError calculatorMemoryError) {
+            throw new RuntimeException();
+
+        }
         return null;
     }
 
     @Override
     public Expression visitLoadM(CalculatorParser.LoadMContext ctx) {
-        return c.getMemory(Integer.parseInt(ctx.NUMBER().getText()));
+        try {
+            return c.getMemory(Integer.parseInt(ctx.NUMBER().getText()));
+        } catch (CalculatorMemoryError calculatorMemoryError) {
+            throw new RuntimeException();
+
+        }
+
     }
 
     @Override

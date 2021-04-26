@@ -3,20 +3,23 @@ grammar Calculator;
 start: expr EOF                                  # Calculation
     | SAVEM expr M NUMBER EOF                    # SaveM
     | LOADM  M  NUMBER EOF                       # LoadM
-    | CONV expr BASE NUMBER EOF                  # Convert
+    | CONV LPAREN expr COMMA NUMBER RPAREN EOF   # Convert
     | UNIT_KW NUMBER unit TO unit EOF            # UnitConvert
     | CURR NUMBER IDENTIFIER TO IDENTIFIER EOF   # CurrConvert
     ;
 
 
-expr: pow                                  # Power
-    | expr op=(TIMES|DIV|MOD|MODINV) expr  # MulDiv
-    | expr op=(PLUS|MINUS) expr            # AddSub
-    | expr EQUIV expr                      # Equiv
-    | expr IMPLY expr                      # Imply
-    | expr AND expr                        # And
-    | expr XOR expr                        # Xor
-    | expr OR expr                         # Or
+expr: pow                                               # Power
+    | expr op=(TIMES|DIV|MOD|MODINV) expr               # MulDiv
+    | expr op=(PLUS|MINUS) expr                         # AddSub
+    | expr EQUIV expr                                   # Equiv
+    | expr IMPLY expr                                   # Imply
+    | expr AND expr                                     # And
+    | expr XOR expr                                     # Xor
+    | expr OR expr                                      # Or
+    | op=(MIN|MAX) LPAREN expr (COMMA expr)+  RPAREN    # MinMax
+    | GCD LPAREN expr COMMA expr RPAREN                 #Gcd
+
     ;
 
 
@@ -25,8 +28,8 @@ pow:
     ;
 atom : STRING                                # DateOrDuration
       | NUMBER                               # Number
-      | NUMBER BASE NUMBER                   # BasedNumber
-      | RAND NUMBER                          # Rand
+      | NUMBER X NUMBER                      # BasedNumber
+      | RAND LPAREN NUMBER RPAREN            # Rand
       | LPAREN expr RPAREN                   # Parens
       | NOT expr                             # Not
       | MINUS expr                           # UnaryMinus
@@ -78,7 +81,12 @@ MOD    : '%';
 EXP: '^';
 
 
+MIN: 'min';
+MAX: 'max';
+GCD: 'gcd';
+COMMA: ',';
 
+X: 'x';
 
 IMPLY: '=>';
 EQUIV: '<=>';

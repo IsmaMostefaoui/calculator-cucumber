@@ -3,9 +3,9 @@ package junit5tests;
 //Import Junit5 libraries for unit testing:
 
 import calculator.Calculator;
-import calculator.Converter;
-import calculator.InnapropriateBase;
-import calculator.MyNumber;
+import calculator.expression.Converter;
+import calculator.error.InnapropriateBase;
+import calculator.expression.MyNumber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

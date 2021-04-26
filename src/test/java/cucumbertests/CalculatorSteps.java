@@ -1,6 +1,10 @@
 package cucumbertests;
 
 import calculator.*;
+import calculator.error.IllegalConstruction;
+import calculator.expression.Expression;
+import calculator.expression.MyNumber;
+import calculator.expression.operation.*;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

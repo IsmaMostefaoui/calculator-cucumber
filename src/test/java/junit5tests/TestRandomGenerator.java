@@ -3,8 +3,8 @@ package junit5tests;
 //Import Junit5 libraries for unit testing:
 
 import calculator.Calculator;
-import calculator.MyNumber;
-import calculator.RandomGenerator;
+import calculator.expression.MyNumber;
+import calculator.expression.RandomGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

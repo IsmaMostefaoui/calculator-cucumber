@@ -1,6 +1,11 @@
 package junit5tests;
 
 import calculator.*;
+import calculator.error.IllegalConstruction;
+import calculator.expression.Expression;
+import calculator.expression.MyNumber;
+import calculator.expression.operation.Imply;
+import calculator.expression.operation.Or;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

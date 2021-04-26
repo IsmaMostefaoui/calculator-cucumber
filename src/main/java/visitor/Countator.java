@@ -1,6 +1,7 @@
 package visitor;
 
-import calculator.*;
+import calculator.expression.*;
+import calculator.expression.operation.Operation;
 
 import java.util.ArrayList;
 import java.util.Collections;

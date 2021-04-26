@@ -1,17 +1,16 @@
 package junit5tests;
 
 import calculator.Calculator;
-import calculator.Expression;
-import calculator.MyNumber;
-import calculator.NoActionLeftInHistory;
+import calculator.expression.Expression;
+import calculator.expression.MyNumber;
+import calculator.error.NoActionLeftInHistory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import visitor.Evaluator;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestHistory {
 
@@ -42,7 +41,11 @@ public class TestHistory {
     public void testUndo() {
         calc.eval(op1);
         calc.eval(op2);
-        calc.undo();
+        try {
+            calc.undo();
+        } catch (NoActionLeftInHistory noActionLeftInHistory) {
+            fail();
+        }
         assertEquals(op1, calc.getCurrent());
     }
 
@@ -50,9 +53,16 @@ public class TestHistory {
     public void testRedo() {
         calc.eval(op1);
         calc.eval(op2);
-        calc.undo();
-        calc.redo();
-        assertEquals(op2, calc.getCurrent());
+
+
+        try {
+            calc.undo();
+            calc.redo();
+            assertEquals(op2, calc.getCurrent());
+        } catch (NoActionLeftInHistory noActionLeftInHistory) {
+            fail();
+        }
+
     }
 
     @Test
@@ -64,7 +74,6 @@ public class TestHistory {
 
     @Test
     public void testNoActionLeft2() {
-        calc.eval(op1);
         assertThrows(NoActionLeftInHistory.class, () -> calc.undo());
     }
 

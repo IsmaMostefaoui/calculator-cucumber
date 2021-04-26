@@ -1,5 +1,8 @@
 package calculator;
 
+import calculator.error.CalculatorMemoryError;
+import calculator.error.NoActionLeftInHistory;
+import calculator.expression.Expression;
 import visitor.Countator;
 import visitor.Evaluator;
 import visitor.Stringator;
@@ -72,10 +75,8 @@ public class Calculator {
         // and ask the expression to accept this visitor to start the evaluation process
         try {
             e.accept(v);
-        } catch (DivisionByZero d) {
-            System.err.println("\nDivision by Zero in : \"" + this.convertToString(e, Notation.INFIX) + "\"");
-        } catch (ArithmeticException a) {
-            System.err.println("\nNot invertible integer : \"" + this.convertToString(e, Notation.INFIX) + "\"");
+        } catch (ArithmeticException d) {
+            return CalculatorResult.UNDEFINED;
         }
         // and return the result of the evaluation at the end of the process
         return v.getResult();
@@ -101,33 +102,33 @@ public class Calculator {
         return ch.getCurrent();
     }
 
-    public Expression undo() {
+    public void undo() throws NoActionLeftInHistory {
         ch.undo();
-        actionHistory.add(ch.getCurrent());
-        return ch.getCurrent();
+        if(!actionHistory.isEmpty()) {
+            actionHistory.remove(actionHistory.size()-1);
+        }
+
     }
 
-    public Expression redo() {
+    public void redo() throws NoActionLeftInHistory {
         ch.redo();
-        actionHistory.add(ch.getCurrent());
-        return ch.getCurrent();
+        if(ch.getCurrent() != null) {
+            actionHistory.add(ch.getCurrent());
+        }
+
     }
 
-    public void storeExpression(Expression e, int indexOfMemory) throws OutOfMemoryError {
-        if (memory.length <= indexOfMemory)
-            throw new OutOfMemoryError();
-        memory[indexOfMemory] = e;
-    }
 
-    public Expression getMemory(int indexOfMemory) throws OutOfMemoryError {
-        if (memory.length <= indexOfMemory)
-            throw new OutOfMemoryError();
+
+    public Expression getMemory(int indexOfMemory) throws CalculatorMemoryError {
+        if (memory.length <= indexOfMemory || indexOfMemory < 0)
+            throw new CalculatorMemoryError();
         return memory[indexOfMemory];
     }
 
-    public void setMemory(Expression e, int indexOfMemory) throws OutOfMemoryError {
-        if (memory.length <= indexOfMemory)
-            throw new OutOfMemoryError();
+    public void setMemory(Expression e, int indexOfMemory) throws CalculatorMemoryError {
+        if (memory.length <= indexOfMemory || indexOfMemory < 0)
+            throw new CalculatorMemoryError();
         memory[indexOfMemory] = e;
     }
 

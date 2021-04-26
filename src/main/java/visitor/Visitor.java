@@ -1,7 +1,9 @@
 package visitor;
 
 
-import calculator.*;
+import calculator.expression.*;
+import calculator.expression.operation.Operation;
+import calculator.expression.operation.UnaryOperation;
 
 /* Visitor design pattern
  */

@@ -1,5 +1,9 @@
 package calculator;
 
+import calculator.error.IllegalConstruction;
+import calculator.expression.Expression;
+import calculator.expression.operation.UnaryOperation;
+
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -20,6 +24,12 @@ public class UnaryMinus extends UnaryOperation {
     public UnaryMinus(List<Expression> elist, Notation n) throws IllegalConstruction {
         super(elist, n);
         this.symbol = "-";
+    }
+
+    @Override
+    public CalculatorResult op(BigInteger r) {
+        return new CalculatorResult(r.negate());
+
     }
 
     @Override

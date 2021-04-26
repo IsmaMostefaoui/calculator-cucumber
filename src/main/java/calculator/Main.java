@@ -1,30 +1,22 @@
 package calculator;
 
-import visitor.Stringator;
+import calculator.expression.Expression;
 
 import java.util.Scanner;
 
 public class Main {
 
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
-//    public static void main(String[] args) {
-//        try {
-//            MyNumber n = new MyNumber("101010", 2);
-////            Stringator s = new Stringator();
-//            System.out.println(n.getValue());
-//            System.out.println(n.getRepresentation());
-//            Converter c = new Converter(n, 8);
-//            System.out.println(c.getValue());
-//            System.out.println(c.getRepresentation());
-//        } catch (InnapropriateBase innapropriateBase) {
-//            innapropriateBase.printStackTrace();
-//        }
-//    }
+
+    private static void perr(String err) {
+        System.out.println(ANSI_RED + err + ANSI_RESET);
+    }
+
 
     public static void main(String[] args) {
-        Calculator c = new Calculator();
 
-        Parser parser = new Parser(c);
 
         String promptIndicator = ">> ";
         String resultPrefix = " ";
@@ -32,46 +24,68 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
 
-
-        while(true) {
+        int memory = -1;
+        while (memory == -1) {
+            System.out.println("Combien d'espace mémoire desirez vous?");
             System.out.print(promptIndicator);
-            String input = in.nextLine().trim();
-            if(!input.equals("")) {
-                switch (input) {
-                    case "exit":
-                        return;
-                    case "undo":
-                        c.undo();
-                        break;
-                    case "history":
-                        c.printLog(Notation.INFIX);
-                        break;
-                    case "redo":
-                        c.redo();
-                        break;
-                    case "save":
-                        c.saveHistory();
-                        break;
-                    case "load":
-                        c.loadHistory();
-                        break;
-                    default:
-                        try {
+            try {
+                memory = Integer.parseInt(in.nextLine().trim());
+            } catch (NumberFormatException e) {
+                perr("Veuillez enter un nombre entier.");
+            }
+        }
+
+
+        Calculator c = new Calculator(memory);
+
+        Parser parser = new Parser(c);
+
+
+        while (true) {
+
+
+            try {
+                System.out.print(promptIndicator);
+                String input = in.nextLine().trim();
+                if (!input.equals("")) {
+                    switch (input) {
+                        case "exit":
+                            return;
+                        case "undo":
+                            c.undo();
+                            break;
+                        case "history":
+                            c.printLog(Notation.INFIX);
+                            break;
+                        case "redo":
+                            c.redo();
+                            break;
+                        case "save":
+                            c.saveHistory();
+                            break;
+                        case "load":
+                            c.loadHistory();
+                            break;
+                        default:
+
                             Expression e = parser.parse(input);
 
-
-                            if(e != null) {
+                            if (e != null) {
                                 CalculatorResult result = c.eval(e);
                                 System.out.println(resultPrefix + result);
                             }
 
-                        }catch (IllegalStateException e) {
-                            System.out.println("Invalid expression");
-                        }
-                        break;
+
+                            break;
+                    }
+
                 }
 
+            } catch (Exception e) {
+                perr("Quelque chose s'est mal passé :/");
             }
+
+
         }
     }
 }

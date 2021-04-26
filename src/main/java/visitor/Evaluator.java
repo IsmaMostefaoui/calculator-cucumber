@@ -1,8 +1,11 @@
 package visitor;
 
 import calculator.*;
+import calculator.error.DivisionByZero;
+import calculator.expression.*;
+import calculator.expression.operation.Operation;
+import calculator.expression.operation.UnaryOperation;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Evaluator extends Visitor {

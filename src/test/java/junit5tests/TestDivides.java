@@ -3,6 +3,12 @@ package junit5tests;
 //Import Junit5 libraries for unit testing:
 
 import calculator.*;
+import calculator.error.DivisionByZero;
+import calculator.error.IllegalConstruction;
+import calculator.expression.Expression;
+import calculator.expression.MyNumber;
+import calculator.expression.operation.Divides;
+import calculator.expression.operation.Times;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

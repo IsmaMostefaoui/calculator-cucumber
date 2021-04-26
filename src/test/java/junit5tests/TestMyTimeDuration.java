@@ -1,7 +1,7 @@
 package junit5tests;
 
-import calculator.IllegalConstruction;
-import calculator.MyTimeDuration;
+import calculator.error.IllegalConstruction;
+import calculator.expression.MyTimeDuration;
 import org.junit.jupiter.api.Test;
 
 
