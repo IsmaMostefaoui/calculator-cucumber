@@ -162,6 +162,9 @@ the [tags on this repository](https://github.com/tommens/calculator-cucumber/tag
 * Tom Mens
 * Gauvain Devillez @GauvainD
 * Damien Legay @DamienLegay
+* Maxime Daniels
+* Ismaïl Mostefaoui
+* Serge Nshimiyimana
 
 ## Licence
 
