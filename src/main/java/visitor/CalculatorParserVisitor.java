@@ -150,6 +150,15 @@ public class CalculatorParserVisitor extends CalculatorBaseVisitor<Expression> {
     }
 
     @Override
+    public Expression visitCong(CalculatorParser.CongContext ctx){
+        try {
+            return new Congruent(Arrays.asList(visit(ctx.expr(0)),visit(ctx.expr(1))),new MyNumber(ctx.NUMBER().getText()));
+        } catch (IllegalConstruction illegalConstruction) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
     public Expression visitConvert(CalculatorParser.ConvertContext ctx) {
 
         CalculatorResult r =  c.eval(visit(ctx.expr()));

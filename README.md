@@ -113,6 +113,8 @@ modulo: ```1 % 2```
 
 inverse modulo: ```1 !% 2``` or ```1 modinv 2```
 
+congruence: ```11 =%(8) 3``` gives TRUE and ```11 =%(8) 4``` gives FALSE (8 is the modulo operator number)
+
 ### Functions
 minimum: ```min(1,2,...) ```
 

@@ -18,7 +18,8 @@ expr: pow                                               # Power
     | expr XOR expr                                     # Xor
     | expr OR expr                                      # Or
     | op=(MIN|MAX) LPAREN expr (COMMA expr)+  RPAREN    # MinMax
-    | GCD LPAREN expr COMMA expr RPAREN                 #Gcd
+    | GCD LPAREN expr COMMA expr RPAREN                 # Gcd
+    | expr CONG LPAREN NUMBER RPAREN expr               # Cong
 
     ;
 
@@ -85,6 +86,7 @@ MIN: 'min';
 MAX: 'max';
 GCD: 'gcd';
 COMMA: ',';
+CONG: '=%';
 
 X: 'x';
 
